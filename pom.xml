@@ -23,6 +23,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <testSourceDirectory>src/tests/java</testSourceDirectory>
     </build>
 
     <dependencies>
