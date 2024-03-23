@@ -20,15 +20,11 @@ Groupe Alternance
 ![CheckStyle](target/site/badges/checkstyle-result.svg)
 
 
-## Description du projet
+## Revue de code TeamRocket
 
-Mise en application de techniques de tests.
-Pour cela nous réalisons un projet logiciel de petite taille, en suivant la roadmap suivante :
+Le code de la Team Rocket est vraiment pourrie.
 
-- Setup du projet
-- Mise en place des outils d’intégration continue
-- Écriture des tests unitaires
-- Écriture des mocks, et validation des tests
-- Développement dirigé par les tests
-- Documentation et conventions de style
-- Test d'une implémentation donnée
+- J'ai testé leurs codes et ces derniers ne passent pas du tout.
+- Checkstyle a trouvé 20 erreurs.
+- Aucune exception levée si l'index est en dehors de [0,150]
+- Les cp ne sont pas cohérents (pas bien géré à la création du pokemon)

@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 
 public class IPokemonFactoryTest {
     IPokemonFactory pokemonFactory;
+//    IPokemonFactory rocketPokemonFactory;
     Pokemon bulbizarre;
     Pokemon aquali ;
 
@@ -15,10 +16,28 @@ public class IPokemonFactoryTest {
     public void init() {
 //        pokemonFactory = Mockito.mock(IPokemonFactory.class);
         pokemonFactory = new PokemonFactoryImpl();
+//        rocketPokemonFactory = new RocketPokemonFactory();
 
         bulbizarre =  new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
         aquali = new Pokemon(133, "Aquali", 186, 186, 260, 2729, 202, 5000, 4, 100);
     }
+
+//    @Test
+//    public void rocketCreatePokemonTest() throws PokedexException {
+//        Assert.assertEquals(bulbizarre.getHp(), rocketPokemonFactory.createPokemon(0, 613, 64, 4000, 4).getHp());
+//        Assert.assertEquals(aquali.getHp(), rocketPokemonFactory.createPokemon(133,2729, 202, 5000, 4).getHp());
+//
+//        Assert.assertEquals(bulbizarre.getIv(), rocketPokemonFactory.createPokemon(0, 613, 64, 4000, 4).getCp(), 0.0);
+//        Assert.assertEquals(aquali.getIv(), rocketPokemonFactory.createPokemon(133,2729, 202, 5000, 4).getCp(), 0.0);
+//
+//        Assert.assertThrows(PokedexException.class, () -> {
+//            rocketPokemonFactory.createPokemon(-19, 2863, 202, 5000, 4);
+//        });
+//
+//        Assert.assertThrows(PokedexException.class, () -> {
+//            rocketPokemonFactory.createPokemon(187, 2863, 202, 5000, 4);
+//        });
+//    }
 
     @Test
     public void createPokemonTest() throws PokedexException {
