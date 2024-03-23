@@ -16,6 +16,10 @@ Groupe Alternance
 ### CodeCov
 [![codecov](https://codecov.io/gh/HichamGuessab/ceri-m1-techniques-de-test/graph/badge.svg?token=IXQK3GFU56)](https://codecov.io/gh/HichamGuessab/ceri-m1-techniques-de-test)
 
+### CheckStyle
+![CheckStyle](target/site/badges/checkstyle-result.svg)
+
+
 ## Description du projet
 
 Mise en application de techniques de tests.
