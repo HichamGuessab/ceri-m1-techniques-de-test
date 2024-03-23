@@ -13,41 +13,40 @@ public class IPokedexTest {
     IPokedex pokedex;
     PokemonMetadata aquali;
     PokemonMetadata bulbizarre;
-    ArrayList<Pokemon> listPokemons = new ArrayList<>();
+    List<Pokemon> listPokemons;
 
 
     @Before
     public void init() {
-        pokedex = Mockito.mock(IPokedex.class);
+        pokedex = new PokedexImpl(new PokemonMetadataProviderImpl(), new PokemonFactoryImpl());
 
         aquali = new Pokemon(133, "Aquali", 186, 186, 260, 2729, 202, 5000, 4, 100);
         bulbizarre =  new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
 
-        listPokemons.add((Pokemon)aquali);
-        listPokemons.add((Pokemon)bulbizarre);
+        listPokemons = pokedex.getPokemons();
     }
 
     @Test
     public void getSizeTest(){
-        Mockito.doReturn(listPokemons.size()).when(pokedex).size();
+//        Mockito.doReturn(listPokemons.size()).when(pokedex).size();
         Assert.assertEquals(2, pokedex.size());
     }
 
     @Test
     public void addPokemonTest(){
-        Mockito.doReturn(listPokemons.size() + 1).when(pokedex).addPokemon(Mockito.any(Pokemon.class));
+//        Mockito.doReturn(listPokemons.size() + 1).when(pokedex).addPokemon(Mockito.any(Pokemon.class));
         Assert.assertEquals(3, pokedex.addPokemon(new Pokemon(0, "Carapuce",0,0,0,0,0,0,0,0)));
     }
 
     @Test
     public void getPokemonTest() throws PokedexException {
-        Mockito.doReturn(bulbizarre).when(pokedex).getPokemon(0);
-        Mockito.doReturn(aquali).when(pokedex).getPokemon(1);
-        Mockito.doThrow(new PokedexException("Error : The pokemon is not in the list")).when(pokedex).getPokemon(Mockito.intThat(i -> i < 0 || i > 1));
+//        Mockito.doReturn(bulbizarre).when(pokedex).getPokemon(0);
+//        Mockito.doReturn(aquali).when(pokedex).getPokemon(1);
+//        Mockito.doThrow(new PokedexException("Error : The pokemon is not in the list")).when(pokedex).getPokemon(Mockito.intThat(i -> i < 0 || i > 1));
 
         // Verify that the Pokémon is returned when the index is in the list
-        Assert.assertEquals(bulbizarre, pokedex.getPokemon(0));
-        Assert.assertEquals(aquali, pokedex.getPokemon(1));
+        Assert.assertEquals(bulbizarre.getName(), pokedex.getPokemon(0).getName());
+        Assert.assertEquals(aquali.getName(), pokedex.getPokemon(1).getName());
 
         // Verify that the exception is thrown when the index is not in the list
         Assert.assertThrows(PokedexException.class, () -> pokedex.getPokemon(-769));
@@ -61,7 +60,7 @@ public class IPokedexTest {
         // Not obligatory to render the list unmodifiable in these cases, but it's a good practice
         List<Pokemon> unmodifiablePokemonList = Collections.unmodifiableList(listPokemons);
 
-        Mockito.doReturn(unmodifiablePokemonList).when(pokedex).getPokemons();
+//        Mockito.doReturn(unmodifiablePokemonList).when(pokedex).getPokemons();
 
         Assert.assertEquals(unmodifiablePokemonList.getClass(), pokedex.getPokemons().getClass());
         Assert.assertEquals(listPokemons.size(), pokedex.getPokemons().size());
@@ -87,9 +86,9 @@ public class IPokedexTest {
         // pokemonSortedByCP = [bulbizarre, aquali]
 
         // Verify that the Pokémon list is returned when the index is in the list
-        Mockito.doReturn(pokemonsSortedByName).when(pokedex).getPokemons(name);
-        Mockito.doReturn(pokemonsSortedByIndex).when(pokedex).getPokemons(index);
-        Mockito.doReturn(pokemonsSortedByCP).when(pokedex).getPokemons(cp);
+//        Mockito.doReturn(pokemonsSortedByName).when(pokedex).getPokemons(name);
+//        Mockito.doReturn(pokemonsSortedByIndex).when(pokedex).getPokemons(index);
+//        Mockito.doReturn(pokemonsSortedByCP).when(pokedex).getPokemons(cp);
 
         Assert.assertEquals(
                 "Bulbizarre",
@@ -100,7 +99,7 @@ public class IPokedexTest {
         Assert.assertEquals(613, pokedex.getPokemons(cp).get(0).getCp());
 
         Assert.assertEquals(
-                ArrayList.class,
+                Collections.unmodifiableList(new ArrayList<>()).getClass(),
                 pokedex.getPokemons(name).getClass()
         );
 

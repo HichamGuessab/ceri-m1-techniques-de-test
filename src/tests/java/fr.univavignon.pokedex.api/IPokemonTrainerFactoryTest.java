@@ -7,17 +7,22 @@ import org.mockito.Mockito;
 
 public class IPokemonTrainerFactoryTest {
 
-    IPokedex pokedex;
+    PokedexImpl pokedex;
     IPokemonTrainerFactory trainerFactory; ;
-    IPokedexFactory factory;
-
+    PokedexFactoryImpl factory;
+    IPokemonMetadataProvider pokemonMetadataProvider;
+    IPokemonFactory pokemonFactory;
     PokemonTrainer trainer;
 
     @Before
     public void init() {
-        pokedex = Mockito.mock(IPokedex.class);
-        trainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
-        factory = Mockito.mock(IPokedexFactory.class);
+//        pokedex = Mockito.mock(IPokedex.class);
+//        trainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
+//        factory = Mockito.mock(IPokedexFactory.class);
+
+        pokedex = new PokedexImpl(pokemonMetadataProvider, pokemonFactory);
+        trainerFactory = new PokemonTrainerFactoryImpl();
+        factory = new PokedexFactoryImpl();
 
         trainer = new PokemonTrainer("Hicham", Team.INSTINCT, pokedex);
     }
@@ -25,17 +30,18 @@ public class IPokemonTrainerFactoryTest {
     @Test
     public void createTrainerTest() {
         // Hicham is a very good trainer
-        Mockito.doReturn(trainer).when(trainerFactory).createTrainer("Hicham", Team.INSTINCT, factory);
+//        Mockito.doReturn(trainer).when(trainerFactory).createTrainer("Hicham", Team.INSTINCT, factory);
 
         Assert.assertEquals(
                 trainer.getClass(),
                 trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory).getClass()
         );
 
-        Assert.assertEquals(
-                trainer,
-                trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory)
-        );
+        // Comparaison de deux objets différents en mémoire (donc ça sert à rien)
+//        Assert.assertEquals(
+//                trainer,
+//                trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory)
+//        );
 
         Assert.assertEquals(
                 "Hicham",
@@ -47,10 +53,13 @@ public class IPokemonTrainerFactoryTest {
                 trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory).getTeam()
         );
 
-        Assert.assertEquals(
-                pokedex,
-                trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory).getPokedex()
-        );
+        Assert.assertEquals(Team.INSTINCT, new PokemonTrainerImpl().createTrainer("Hicham", Team.INSTINCT, factory).getTeam());
+
+        // Comparaison de deux objets différents en mémoire (donc ça sert à rien)
+//        Assert.assertEquals(
+//                pokedex,
+//                trainerFactory.createTrainer("Hicham", Team.INSTINCT, factory).getPokedex()
+//        );
 
         Assert.assertEquals(
                 pokedex.size(),

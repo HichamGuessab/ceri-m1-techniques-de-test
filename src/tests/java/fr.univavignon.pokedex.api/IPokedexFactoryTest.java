@@ -7,11 +7,16 @@ import org.mockito.Mockito;
 
 public class IPokedexFactoryTest {
 
+    PokemonMetadata bulbizarre;
+    PokemonMetadata aquali;
     IPokedexFactory pokedexFactory;
 
     @Before
     public void init() {
-        pokedexFactory = Mockito.mock(IPokedexFactory.class);
+        pokedexFactory = new PokedexFactoryImpl();
+
+        bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+        aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
     }
 
     @Test
@@ -19,13 +24,7 @@ public class IPokedexFactoryTest {
         IPokemonMetadataProvider pokemonMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
         IPokemonFactory pokemonFactory = Mockito.mock(IPokemonFactory.class);
 
-        Mockito.doReturn(Mockito.mock(IPokedex.class)).
-                when(pokedexFactory).
-                createPokedex(
-                        Mockito.any(pokemonMetadataProvider.getClass()),
-                        Mockito.any(pokemonFactory.getClass()
-                        )
-                );
+        Assert.assertEquals(PokedexImpl.class, pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory).getClass());
 
         Assert.assertNotNull(
                 pokedexFactory.createPokedex(
@@ -34,11 +33,6 @@ public class IPokedexFactoryTest {
                 )
         );
 
-        Assert.assertEquals(
-                Mockito.mock(IPokedex.class).getClass(),
-                pokedexFactory.createPokedex(
-                        Mockito.mock(IPokemonMetadataProvider.class),
-                        Mockito.mock(IPokemonFactory.class)
-                ).getClass());
+        Assert.assertEquals(PokedexImpl.class, pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory).getClass());
     }
 }
